@@ -4,16 +4,18 @@ function preload()
 {
   //load images here
   hungryDog = loadImage("images/dogImg.png");
-  happyDog = loadImage("images/doImg1.png");
+  happyDog = loadImage("images/dogImg1.png");
 }
 
 function setup() {
-  database = database.firebase();
+  database = firebase.database();
   createCanvas(500, 500);
   dog = createSprite(250,250,30,30);
   dog.addImage(hungryDog);
+  dog.scale = 0.2;
   foodStock = database.ref("Food");
   foodStock.on("value",readStock);
+
 }
 
 
@@ -22,13 +24,13 @@ function draw() {
 
   if(keyDown(UP_ARROW)){
     writeStock(foodS);
-    dog.addImage(happyImage);
+    dog.addImage(happyDog);
 }
 
   drawSprites();
   //add styles here
-  textSize(48);
-  text("Food remaining:"+foodStock,250,200);
+  textSize(20);
+  text("Food remaining:"+foodS,100,160);
 }
 
 function readStock(data){
